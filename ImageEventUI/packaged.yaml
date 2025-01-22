@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS SAM template to deploy an Angular app to S3
+Resources:
+  AngularAppBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Fn::Sub: ${AWS::StackName}-angular-app
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+      CorsConfiguration:
+        CorsRules:
+        - AllowedOrigins:
+          - '*'
+          AllowedMethods:
+          - GET
+          - PUT
+          - POST
+          - DELETE
+          - HEAD
+          AllowedHeaders:
+          - '*'
+          MaxAge: 3000
+    Metadata:
+      SamResourceId: AngularAppBucket
+  AngularAppBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: AngularAppBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal: '*'
+          Action: s3:GetObject
+          Resource:
+            Fn::Sub: arn:aws:s3:::${AngularAppBucket}/*
+    Metadata:
+      SamResourceId: AngularAppBucketPolicy
+  DeploymentBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Fn::Sub: ${AWS::StackName}-deployment-bucket
+    Metadata:
+      SamResourceId: DeploymentBucket
+Outputs:
+  AngularAppBucketName:
+    Description: Name of the S3 bucket where the Angular app is deployed
+    Value:
+      Ref: AngularAppBucket
+  AngularAppBucketWebsiteURL:
+    Description: URL of the S3 bucket website endpoint
+    Value:
+      Fn::GetAtt:
+      - AngularAppBucket
+      - WebsiteURL
+  DeploymentBucketName:
+    Description: Name of the S3 bucket used for deployment
+    Value:
+      Ref: DeploymentBucket

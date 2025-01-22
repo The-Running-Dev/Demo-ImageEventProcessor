@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: A Image Event Web API
+
+Resources:
+  ImageEventWebApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ImageEventProcessor::ImageEventProcessor.LambdaEntryPoint::FunctionHandlerAsync
+      Runtime: dotnet8
+      CodeUri: ./ImageEventProcessor
+      MemorySize: 256
+      Timeout: 30
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Environment:
+        Variables:
+          ASPNETCORE_ENVIRONMENT: Production
+          SWAGGER_JSON_URL: "https://o5biptr6cd.execute-api.eu-central-1.amazonaws.com/Prod/swagger/v1/swagger.json"
+      Events:
+        ApiRoot:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+        SwaggerUI:
+          Type: Api
+          Properties:
+            Path: /swagger
+            Method: ANY
+        SwaggerJson:
+          Type: Api
+          Properties:
+            Path: /swagger/v1/swagger.json
+            Method: GET
+        ProxyAny:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL for Prod environment"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

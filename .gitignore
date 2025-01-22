@@ -1,0 +1,6 @@
+.aws-sam
+.vs
+.vscode
+bin/
+release/
+obj/
