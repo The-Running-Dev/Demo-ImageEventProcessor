@@ -20,11 +20,14 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        working-directory: ImageEventUI
 
       - name: Build
         run: ng build --configuration production --base-href "https://the-running-dev.github.io/Demo-ImageEventProcessor/"
+        working-directory: ImageEventUI
 
       - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=dist/image-event-ui/browser
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ImageEventUI
