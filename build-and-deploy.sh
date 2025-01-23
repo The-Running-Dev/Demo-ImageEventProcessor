@@ -10,7 +10,7 @@ npm install -g @angular/cli
 npm install -g angular-cli-ghpages
 
 # Install Dependencies
-npm install --prefix ImageEventUI
+npm install
 
 # Build the project
 ng build --configuration production --base-href "https://the-running-dev.github.io/Demo-ImageEventProcessor/" --project ImageEventUI
