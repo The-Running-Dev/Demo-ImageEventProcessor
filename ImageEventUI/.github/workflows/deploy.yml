@@ -1,0 +1,30 @@
+name: Deploy UI to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: ng build --configuration production --base-href "https://the-running-dev.github.io/Demo-ImageEventProcessor/"
+
+      - name: Deploy to GitHub Pages
+        run: npx angular-cli-ghpages --dir=dist/image-event-ui/browser
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

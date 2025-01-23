@@ -8,6 +8,7 @@ import { AppComponent } from './components/app.component';
 import { DateTimeLocalPipe } from './pipes/date-time-local.pipe';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router';
         HttpClientModule,
         RouterModule,
         MatToolbarModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressSpinnerModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -154,3 +154,15 @@ main {
   height: auto;
   display: block;
 }
+
+button[disabled] {
+  background-color: #e0e0e0; /* Light gray background */
+  color: #9e9e9e; /* Gray text color */
+  cursor: not-allowed; /* Change cursor to not-allowed */
+  opacity: 1; /* Ensure text is visible */
+}
+
+mat-spinner {
+  display: block;
+  margin: 1rem auto;
+}

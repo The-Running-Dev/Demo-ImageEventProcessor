@@ -6,15 +6,18 @@
     <div class="left-pane">
       <div class="form-group">
         <label for="imageUrl">Image URL</label>
-        <input id="imageUrl" [(ngModel)]="imageUrl" placeholder="Image URL" class="form-input" />
+        <input id="imageUrl" #imageUrlInput [(ngModel)]="imageUrl" placeholder="Image URL" class="form-input" />
       </div>
       <div class="form-group">
         <label for="description">Description</label>
         <input id="description" [(ngModel)]="description" placeholder="Description" class="form-input" />
       </div>
-      <button mat-raised-button color="accent" (click)="postImageEvent()">Post Image</button>
+      <button mat-raised-button color="accent" (click)="postImageEvent()" [disabled]="isPosting">
+        {{ isPosting ? 'Posting...' : 'Post Image' }}
+      </button>
     </div>
     <div class="right-pane">
+      <mat-spinner *ngIf="isPosting"></mat-spinner>
       <div *ngIf="latestEvent; else noContent">
         <img [src]="latestEvent.image.imageUrl" alt="Latest Image"/>
         <p>Url: {{ latestEvent.image.imageUrl }}</p>
