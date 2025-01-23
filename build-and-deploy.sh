@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Change to the project directory
+cd ImageEventUI
+
 # Install Angular CLI
 npm install -g @angular/cli
 
