@@ -6,20 +6,23 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  Build-and-Deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '22'
 
-      - name: Install Angular CLI
+      - name: Install the Angular CLI
         run: npm install -g @angular/cli
+
+      - name: Install Angular CLI GitHub Pages
+        run: npm install -g angular-cli-ghpages
 
       - name: Install Dependencies
         run: npm install
