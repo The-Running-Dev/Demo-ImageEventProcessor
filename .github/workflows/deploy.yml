@@ -33,7 +33,7 @@ jobs:
         working-directory: ImageEventUI
 
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=ImageEventUI/dist/image-event-ui/browser
+        run: npx angular-cli-ghpages --dir=dist/image-event-ui/browser
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ImageEventUI
