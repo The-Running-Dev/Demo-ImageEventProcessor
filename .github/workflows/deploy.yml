@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Set Execute Permission
+        run: chmod +x build-and-deploy.sh
+
       - name: Run Build and Deploy Script
         run: ./build-and-deploy.sh
         env:
